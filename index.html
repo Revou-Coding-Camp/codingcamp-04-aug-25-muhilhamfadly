@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-do List</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="style.css" rel="stylesheet" />
+  <script src="script.js" defer></script>
 </head>
-<body>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+  <div class="bg-gray-800 p-6 rounded-lg shadow-lg shadow-blue-950 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-4 ">Todo List</h1>
     
+    <form id="todo-form" class="flex items-center gap-2 mb-4">
+  <input type="text" id="todo-input" placeholder="Add a todo..."
+    class="flex-1 px-3 py-2 h-10 rounded bg-[#0f172a] text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-2 outline-blue-500/50 " required />
+
+  <input type="date" id="due-date"
+    class="px-3 py-2 h-10 rounded bg-[#0f172a] text-white focus:ring-2 focus:ring-blue-500 outline-2 outline-blue-500/50 " required />
+
+  <button type="submit"
+    class="w-10 h-10 text-lg font-bold bg-blue-600 hover:bg-blue-700 rounded text-white flex items-center justify-center">+</button>
+</form>
+
+
+    <div class="flex justify-between mb-2">
+      <button id="filter-btn" class="text-sm bg-gray-700 px-3 py-1 rounded hover:bg-gray-600">Filter</button>
+      <button id="delete-all" class="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-red-700">Delete All</button>
+    </div>
+
+    <table class="w-full text-sm table-auto">
+      <thead class="text-left border-b border-gray-600 rounded">
+        <tr>
+          <th class="px-3 py-2 bg-gray-900" >TASK</th>
+          <th class="px-3 py-2 bg-gray-900">DUE DATE</th>
+          <th class="px-3 py-2 bg-gray-900">STATUS</th>
+          <th class="px-3 py-2 bg-gray-900">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="todo-list" class="text-gray-300">
+        <tr>
+          <td colspan="4" class="text-center py-4 bg-gray-900">No task found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
