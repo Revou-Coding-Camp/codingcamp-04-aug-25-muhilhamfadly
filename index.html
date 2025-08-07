@@ -1,62 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Todo List</title>
-  <link rel="stylesheet" href="CSS/style.css" />
+  <title>To-do List</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="CSS\style.css" rel="stylesheet" />
+  <script src="JS\script.js" defer></script>
 </head>
-
 <body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-3xl px-4">
-    <header class="text-center mb-6">
-      <h1 class="text-3xl font-bold">Todo List Application</h1>
-    </header>
+  <div class="bg-gray-800 p-6 rounded-lg shadow-lg shadow-blue-950 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-4 ">Todo List</h1>
+    
+    <form id="todo-form" class="flex items-center gap-2 mb-4">
+  <input type="text" id="todo-input" placeholder="Add a todo..."
+    class="flex-1 px-3 py-2 h-10 rounded bg-[#0f172a] text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-2 outline-blue-500/50 " required />
 
-    <main>
-      <form>
-        <div class="flex justify-center items-center gap-x-2 flex-wrap sm:flex-nowrap mb-6">
-          <input
-            type="text"
-            id="todo-input"
-            placeholder="Add a new todo"
-            class="border border-gray-300 p-2 rounded w-full sm:w-1/2"
-          />
-          <input
-            type="date"
-            id="date-input"
-            class="border border-gray-300 p-2 rounded w-full sm:w-1/4"
-          />
-          <button
-            type="button"
-            onclick="validateForm();"
-            class="bg-blue-500 text-white p-2 rounded w-full sm:w-auto"
-          >
-            Add Todo
-          </button>
-        </div>
-      </form>
+  <input type="date" id="due-date"
+    class="px-3 py-2 h-10 rounded bg-[#0f172a] text-white focus:ring-2 focus:ring-blue-500 outline-2 outline-blue-500/50 " required />
 
-      <section class="flex justify-between items-center mb-4">
-        <button id="filter-button" class="bg-yellow-500 text-white p-2 rounded">Filter</button>
-        <button onclick="clearTodos();" class="bg-red-500 text-white p-2 rounded">Delete All</button>
-      </section>
+  <button type="submit"
+    class="w-10 h-10 text-lg font-bold bg-blue-600 hover:bg-blue-700 rounded text-white flex items-center justify-center">+</button>
+</form>
 
-      <section id="todo-list" class="bg-gray-800 rounded p-4">
-        <div>
-          <p class="text-white-400">No todos added yet.</p>
-        </div>
-      </section>
-    </main>
 
-    <footer class="text-center text-gray-500 mt-6">
-      <p>© 2025 Todo List Application</p>
-    </footer>
+    <div class="flex justify-between mb-2">
+      <button id="filter-btn" class="text-sm bg-gray-700 px-3 py-1 rounded hover:bg-gray-600">Filter</button>
+      <button id="delete-all" class="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-red-700">Delete All</button>
+    </div>
+
+    <table class="w-full text-sm table-auto">
+      <thead class="text-left border-b border-gray-600 rounded">
+        <tr>
+          <th class="px-3 py-2 bg-gray-900" >TASK</th>
+          <th class="px-3 py-2 bg-gray-900">DUE DATE</th>
+          <th class="px-3 py-2 bg-gray-900">STATUS</th>
+          <th class="px-3 py-2 bg-gray-900">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="todo-list" class="text-gray-300">
+        <tr>
+          <td colspan="4" class="text-center py-4 bg-gray-900">No task found</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <script src="JS/script.js"></script>
 </body>
-
 </html>

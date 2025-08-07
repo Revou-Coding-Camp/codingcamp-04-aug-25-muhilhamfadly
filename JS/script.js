@@ -1,50 +1,64 @@
-let todoList = [];
+const todoForm = document.getElementById('todo-form');
+const todoInput = document.getElementById('todo-input');
+const dueDate = document.getElementById('due-date');
+const todoList = document.getElementById('todo-list');
+const deleteAllBtn = document.getElementById('delete-all');
 
-function validateForm() {
-    const todoInput = document.getElementById('todo-input').value.trim();
-    const dateInput = document.getElementById('date-input').value;
+let todos = [];
 
-    if (todoInput === '' || dateInput === '') {
-        alert('Please enter a todo item and a due date.');
-    } else {
-        addTodo(todoInput, dateInput);
-        document.getElementById('todo-input').value = '';
-        document.getElementById('date-input').value = '';
-    }
+todoForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const task = todoInput.value.trim();
+  const date = dueDate.value;
+
+  if (task && date) {
+    todos.push({ task, date, done: false });
+    todoInput.value = '';
+    dueDate.value = '';
+    renderTodos();
+  }
+});
+
+deleteAllBtn.addEventListener('click', function () {
+  todos = [];
+  renderTodos();
+});
+
+function renderTodos() {
+  todoList.innerHTML = '';
+
+  if (todos.length === 0) {
+    todoList.innerHTML = '<tr><td colspan="4" class="text-center py-4">No task found</td></tr>';
+    return;
+  }
+
+  todos.forEach((todo, index) => {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b border-gray-700';
+
+    tr.innerHTML = `
+      <td class="py-2 ${todo.done ? 'line-through text-gray-500' : ''}">${todo.task}</td>
+      <td class="py-2">${todo.date}</td>
+      <td class="py-2">${todo.done ? 'Completed' : 'Pending'}</td>
+      <td class="py-2">
+        <button onclick="toggleStatus(${index})" class="bg-green-600 hover:bg-green-700 px-2 py-1 rounded text-xs mr-1">Done</button>
+        <button onclick="deleteTodo(${index})" class="bg-red-600 hover:bg-red-700 px-2 py-1 rounded text-xs">Del</button>
+      </td>
+    `;
+    todoList.appendChild(tr);
+  });
 }
 
-function addTodo(todo, date) {
-    const todoItem = {
-        task: todo,
-        date: date
-    };
-
-    todoList.push(todoItem);
-    displayTodos();
+function toggleStatus(index) {
+  todos[index].done = !todos[index].done;
+  renderTodos();
 }
 
-function displayTodos() {
-    const todoListElement = document.getElementById('todo-list');
-    todoListElement.innerHTML = ''; 
-
-    if (todoList.length === 0) {
-        todoListElement.innerHTML = `<p class="text-gray-400">No todos added yet.</p>`;
-        return;
-    }
-
-    todoList.forEach((item, index) => {
-        const todoItem = document.createElement('div');
-        todoItem.className = "bg-gray-700 text-white p-3 rounded mb-2 shadow-sm flex justify-between items-center";
-        todoItem.innerHTML = `
-            <span class="font-medium">${item.task}</span>
-            <span class="text-sm text-gray-300">${item.date}</span>
-        `;
-        todoListElement.appendChild(todoItem);
-    });
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  renderTodos();
 }
 
-
-function clearTodos() {
-    todoList = [];
-    displayTodos();
-}
+document.getElementById('filter-btn').addEventListener('click', () => {
+  alert("Filter feature not implemented yet!");
+});
